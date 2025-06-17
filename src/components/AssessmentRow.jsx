@@ -1,20 +1,32 @@
-import { Row, Button, DownloadIcon } from "./AssessmentRow.styles";
+import { Row, Button, DownloadIconContainer } from "./AssessmentRow.styles"; // Updated import
+import DownloadIconSvg from "../assets/downloadIcon.svg";
 
 const AssessmentRow = ({ data }) => {
-    // Add a guard clause to handle cases where data might be undefined
     if (!data) {
         console.error("AssessmentRow: data prop is missing or undefined. This row will not be rendered.");
-        return null; // Prevent rendering if data is not available
+        return null;
     }
+
+    // Helper to create labeled data for card view
+    const renderDataPoint = (label, value) => (
+        <p><strong>{label}: </strong>{value}</p>
+    );
+
     return (
         <Row>
-            <p>{data.name}</p>
-            <p>CSE UG 2024</p>
-            <p>{data.start}</p>
-            <p>{data.end}</p>
-            <div style={{ display: "flex", gap: "1rem", alignItems: "center" }}>
+            {/* Conditional rendering for labels based on screen size can be complex with styled-components alone.
+                For simplicity, we'll render labels always and hide them with CSS for larger screens.
+                Alternatively, one could use a window resize listener, but that's more involved. */}
+            {renderDataPoint("Assessment Name", data.name)}
+            {renderDataPoint("Assigned To", "CSE UG 2024")}
+            {renderDataPoint("Start Time", data.start)}
+            {renderDataPoint("End Time", data.end)}
+
+            <div className="action-container"> {/* Added className for styling hook */}
                 <Button>View Performance</Button>
-                <DownloadIcon>⬇</DownloadIcon>
+                <DownloadIconContainer> {/* Use the new container */}
+                    <img src={DownloadIconSvg} alt="Download" />
+                </DownloadIconContainer>
             </div>
         </Row>
     );
