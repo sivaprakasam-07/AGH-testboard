@@ -1,10 +1,13 @@
 import Navbar from "./components/Navbar";
+import AssessmentResults from "./components/AssessmentResults";
+import AssessmentRow from "./components/AssessmentRow";
 
 const App = () => {
   return (
     <div>
       <Navbar />
-      {/* Other components can be added here */}
+      <AssessmentResults />
+      <AssessmentRow />
     </div>
   );
 }
